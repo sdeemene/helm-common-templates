@@ -1,0 +1,142 @@
+{{- define "common.deployment" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: {{ .Values.deployment.name }}
+  labels:
+    app: {{ .Values.deployment.label }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deployment.label }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deployment.label }}
+    spec:
+      containers:
+      - name: {{ .Values.deployment.label }}
+        image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: {{ .Values.deployment.containerPort }}
+          protocol: TCP
+        env:
+        {{- if .Values.profile_enabled }}
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.configmap.name }}
+              key: SPRING_PROFILES_ACTIVE
+        {{- end }}
+        {{- if .Values.githubuser_enabled }}
+        - name: GITHUB_USERNAME
+          valueFrom: 
+            configMapKeyRef:
+              name: {{ .Values.configmap.name }}
+              key: GITHUB_USERNAME
+        {{- end }}
+        {{- if .Values.eureka_enabled }}
+        - name: EUREKA_SERVER
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configmap.name }}
+              key: EUREKA_SERVER
+        {{- end -}}
+        {{- if .Values.zipkin_enabled }}
+        - name: ZIPKIN_SERVER
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configmap.name }}
+              key: ZIPKIN_SERVER
+        {{- end }}
+        {{- if .Values.config_enabled }}
+        - name: CONFIG_SERVER
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configmap.name }}
+              key: CONFIG_SERVER
+        {{- end }}
+        {{- if .Values.postgresdb_enabled }}
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configmap.name }}
+              key: POSTGRES_DB
+        {{- end }}
+        {{- if .Values.postgresauth_enabled }}
+        - name: POSTGRES_HOST_AUTH_METHOD
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configmap.name }}
+              key: POSTGRES_HOST_AUTH_METHOD
+        {{- end }}
+        {{- if .Values.dbhost_enabled }}
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configmap.name }}
+              key: DB_HOST
+        {{- end }}
+        {{- if .Values.dbport_enabled }}
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configmap.name }}
+              key: DB_PORT
+        {{- end }}
+        {{- if .Values.dbname_enabled }}
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configmap.name }}
+              key: DB_NAME
+        {{- end }}
+        {{- if .Values.githubpass_enabled }}
+        - name : GITHUB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name:  {{ .Values.secret.name }}
+              key:  GITHUB_PASSWORD
+        {{- end }}
+        {{- if .Values.postgresuser_enabled }}
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name }}
+              key: POSTGRES_USER
+        {{- end }}
+        {{- if .Values.postgrespass_enabled }}
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name }}
+              key: POSTGRES_PASSWORD
+        {{- end }}
+        {{- if .Values.dbuser_enabled }}
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name }}
+              key: DB_USER
+        {{- end }}
+        {{- if .Values.dbpass_enabled }}
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name }}
+              key: DB_PASS
+        {{- end }}
+        {{- if .Values.volume_mount_enabled }}
+        volumeMounts:
+          - name: {{ .Values.deployment.volume.name }}
+            mountPath:  /var/lib/postgresql/data
+          {{- end }}
+      {{- if .Values.volume_enabled }}
+      volumes:
+        - name: {{ .Values.deployment.volume.name }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistentvolumeclaim.name }}  
+      {{- end }}         
+{{- end -}}

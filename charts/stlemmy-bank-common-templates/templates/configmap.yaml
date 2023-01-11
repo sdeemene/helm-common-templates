@@ -1,0 +1,37 @@
+{{- define "common.configmap" -}}
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.configmap.name}}
+data:
+  {{- if .Values.profile_enabled }}
+  SPRING_PROFILES_ACTIVE: {{ .Values.configmap.activeProfile }}
+  {{- end }}
+  {{- if .Values.githubuser_enabled }}
+  GITHUB_USERNAME: {{ .Values.configmap.githubUser }}
+  {{- end }}
+  {{- if .Values.eureka_enabled }}
+  EUREKA_SERVER: {{ .Values.configmap.eurekaServerUrl }}
+  {{- end }}
+  {{- if .Values.zipkin_enabled }}
+  ZIPKIN_SERVER: {{ .Values.configmap.zipkinServerUrl }}
+  {{- end }}
+  {{- if .Values.config_enabled }}
+  CONFIG_SERVER: {{ .Values.configmap.configServerUrl }}
+  {{- end }}
+  {{- if .Values.postgresdb_enabled }}
+  POSTGRES_DB: {{ .Values.configmap.postgresDB }}
+  {{- end }}
+  {{- if .Values.postgresauth_enabled }}
+  POSTGRES_HOST_AUTH_METHOD: {{ .Values.configmap.postgresAuthMethod }}
+  {{- end }}
+  {{- if .Values.dbhost_enabled }}
+  DB_HOST: {{ .Values.configmap.dbHost }}
+  {{- end }}
+  {{- if .Values.dbport_enabled }}
+  DB_PORT: "{{ .Values.configmap.dbPort }}"
+  {{- end }}
+  {{- if .Values.dbname_enabled }}
+  DB_NAME: {{ .Values.configmap.dbName }}
+  {{- end }}
+{{- end -}}
