@@ -79,7 +79,7 @@ spec:
               name: {{ .Values.configmap.name }}
               key: DB_HOST
         {{- end }}
-        {{- if .Values.global..dbport.enabled }}
+        {{- if .Values.global.dbport.enabled }}
         - name: DB_PORT
           valueFrom:
             configMapKeyRef:
