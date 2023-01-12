@@ -3,6 +3,16 @@ entries:
   stlemmy-bank-common-templates:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2023-01-12T11:47:34.218277764Z"
+    description: A Helm chart for Kubernetes
+    digest: c118befee18475ac95b3968b511f788eab52c2cc3c7d91bc374e97fc7dc81d60
+    name: stlemmy-bank-common-templates
+    type: application
+    urls:
+    - https://github.com/sdeemene/helm-common-templates/releases/download/stlemmy-bank-common-templates-0.1.3/stlemmy-bank-common-templates-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2023-01-12T09:53:24.516003701Z"
     description: A Helm chart for Kubernetes
     digest: 6878f6bb51fa3cb2441a56fe8ec4e4eff706450abfd9d751a3ea51dab57fbff1
@@ -31,4 +41,4 @@ entries:
     urls:
     - https://github.com/sdeemene/helm-common-templates/releases/download/stlemmy-bank-common-templates-0.1.0/stlemmy-bank-common-templates-0.1.0.tgz
     version: 0.1.0
-generated: "2023-01-12T09:53:24.516023202Z"
+generated: "2023-01-12T11:47:34.218311664Z"
