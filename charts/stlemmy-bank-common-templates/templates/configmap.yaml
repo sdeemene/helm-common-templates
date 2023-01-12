@@ -28,7 +28,7 @@ data:
   {{- if .Values.global.dbhost.enabled }}
   DB_HOST: {{ .Values.configmap.dbHost }}
   {{- end }}
-  {{- if .Values.global..dbport.enabled }}
+  {{- if .Values.global.dbport.enabled }}
   DB_PORT: "{{ .Values.configmap.dbPort }}"
   {{- end }}
   {{- if .Values.global.dbname.enabled }}
