@@ -23,117 +23,117 @@ spec:
         - containerPort: {{ .Values.deployment.containerPort }}
           protocol: TCP
         env:
-        {{- if .Values.profile_enabled }}
+        {{- if .Values.global.profile.enabled }}
         - name: SPRING_PROFILES_ACTIVE
           valueFrom: 
             configMapKeyRef:
               name: {{ .Values.configmap.name }}
               key: SPRING_PROFILES_ACTIVE
         {{- end }}
-        {{- if .Values.githubuser_enabled }}
+        {{- if .Values.global.githubuser.enabled }}
         - name: GITHUB_USERNAME
           valueFrom: 
             configMapKeyRef:
               name: {{ .Values.configmap.name }}
               key: GITHUB_USERNAME
         {{- end }}
-        {{- if .Values.eureka_enabled }}
+        {{- if .Values.global.eureka.enabled }}
         - name: EUREKA_SERVER
           valueFrom:
             configMapKeyRef:
               name: {{ .Values.configmap.name }}
               key: EUREKA_SERVER
         {{- end -}}
-        {{- if .Values.zipkin_enabled }}
+        {{- if .Values.global.zipkin.enabled }}
         - name: ZIPKIN_SERVER
           valueFrom:
             configMapKeyRef:
               name: {{ .Values.configmap.name }}
               key: ZIPKIN_SERVER
         {{- end }}
-        {{- if .Values.config_enabled }}
+        {{- if .Values.global.config.enabled }}
         - name: CONFIG_SERVER
           valueFrom:
             configMapKeyRef:
               name: {{ .Values.configmap.name }}
               key: CONFIG_SERVER
         {{- end }}
-        {{- if .Values.postgresdb_enabled }}
+        {{- if .Values.global.postgresdb.enabled }}
         - name: POSTGRES_DB
           valueFrom:
             configMapKeyRef:
               name: {{ .Values.configmap.name }}
               key: POSTGRES_DB
         {{- end }}
-        {{- if .Values.postgresauth_enabled }}
+        {{- if .Values.global.postgresauth.enabled }}
         - name: POSTGRES_HOST_AUTH_METHOD
           valueFrom:
             configMapKeyRef:
               name: {{ .Values.configmap.name }}
               key: POSTGRES_HOST_AUTH_METHOD
         {{- end }}
-        {{- if .Values.dbhost_enabled }}
+        {{- if .Values.global.dbhost.enabled }}
         - name: DB_HOST
           valueFrom:
             configMapKeyRef:
               name: {{ .Values.configmap.name }}
               key: DB_HOST
         {{- end }}
-        {{- if .Values.dbport_enabled }}
+        {{- if .Values.global..dbport.enabled }}
         - name: DB_PORT
           valueFrom:
             configMapKeyRef:
               name: {{ .Values.configmap.name }}
               key: DB_PORT
         {{- end }}
-        {{- if .Values.dbname_enabled }}
+        {{- if .Values.global.dbname.enabled }}
         - name: DB_NAME
           valueFrom:
             configMapKeyRef:
               name: {{ .Values.configmap.name }}
               key: DB_NAME
         {{- end }}
-        {{- if .Values.githubpass_enabled }}
+        {{- if .Values.global.githubpass.enabled }}
         - name : GITHUB_PASSWORD
           valueFrom:
             secretKeyRef:
               name:  {{ .Values.secret.name }}
               key:  GITHUB_PASSWORD
         {{- end }}
-        {{- if .Values.postgresuser_enabled }}
+        {{- if .Values.global.postgresuser.enabled }}
         - name: POSTGRES_USER
           valueFrom:
             secretKeyRef:
               name: {{ .Values.secret.name }}
               key: POSTGRES_USER
         {{- end }}
-        {{- if .Values.postgrespass_enabled }}
+        {{- if .Values.global.postgrespass.enabled }}
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
               name: {{ .Values.secret.name }}
               key: POSTGRES_PASSWORD
         {{- end }}
-        {{- if .Values.dbuser_enabled }}
+        {{- if .Values.global.dbuser.enabled }}
         - name: DB_USER
           valueFrom:
             secretKeyRef:
               name: {{ .Values.secret.name }}
               key: DB_USER
         {{- end }}
-        {{- if .Values.dbpass_enabled }}
+        {{- if .Values.global.dbpass.enabled }}
         - name: DB_PASS
           valueFrom:
             secretKeyRef:
               name: {{ .Values.secret.name }}
               key: DB_PASS
         {{- end }}
-        {{- if .Values.volume_mount_enabled }}
+        {{- if .Values.deployment.volume.mount.enabled }}
         volumeMounts:
           - name: {{ .Values.deployment.volume.name }}
             mountPath:  /var/lib/postgresql/data
           {{- end }}
-      {{- if .Values.volume_enabled }}
+      {{- if .Values.deployment.volume.enabled }}
       volumes:
         - name: {{ .Values.deployment.volume.name }}
           persistentVolumeClaim:

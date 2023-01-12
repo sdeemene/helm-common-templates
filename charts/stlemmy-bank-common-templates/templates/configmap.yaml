@@ -4,34 +4,34 @@ apiVersion: v1
 metadata:
   name: {{ .Values.configmap.name}}
 data:
-  {{- if .Values.profile_enabled }}
+  {{- if .Values.global.profile.enabled }}
   SPRING_PROFILES_ACTIVE: {{ .Values.configmap.activeProfile }}
   {{- end }}
-  {{- if .Values.githubuser_enabled }}
+  {{- if .Values.global.githubuser.enabled }}
   GITHUB_USERNAME: {{ .Values.configmap.githubUser }}
   {{- end }}
-  {{- if .Values.eureka_enabled }}
+  {{- if .Values.global.eureka.enabled }}
   EUREKA_SERVER: {{ .Values.configmap.eurekaServerUrl }}
   {{- end }}
-  {{- if .Values.zipkin_enabled }}
+  {{- if .Values.global.zipkin.enabled }}
   ZIPKIN_SERVER: {{ .Values.configmap.zipkinServerUrl }}
   {{- end }}
-  {{- if .Values.config_enabled }}
+  {{- if .Values.global.config.enabled }}
   CONFIG_SERVER: {{ .Values.configmap.configServerUrl }}
   {{- end }}
-  {{- if .Values.postgresdb_enabled }}
+  {{- if .Values.global.postgresdb.enabled }}
   POSTGRES_DB: {{ .Values.configmap.postgresDB }}
   {{- end }}
-  {{- if .Values.postgresauth_enabled }}
+  {{- if .Values.global.postgresauth.enabled }}
   POSTGRES_HOST_AUTH_METHOD: {{ .Values.configmap.postgresAuthMethod }}
   {{- end }}
-  {{- if .Values.dbhost_enabled }}
+  {{- if .Values.global.dbhost.enabled }}
   DB_HOST: {{ .Values.configmap.dbHost }}
   {{- end }}
-  {{- if .Values.dbport_enabled }}
+  {{- if .Values.global..dbport.enabled }}
   DB_PORT: "{{ .Values.configmap.dbPort }}"
   {{- end }}
-  {{- if .Values.dbname_enabled }}
+  {{- if .Values.global.dbname.enabled }}
   DB_NAME: {{ .Values.configmap.dbName }}
   {{- end }}
 {{- end -}}
