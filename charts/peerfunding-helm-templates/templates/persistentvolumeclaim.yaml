@@ -1,0 +1,16 @@
+{{- define "common.persistentvolumeclaim" -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.persistentvolumeclaim.name }}
+  labels:
+    app: {{ .Values.deployment.label }}
+    tier: database
+spec:
+  resources:
+    requests:
+      storage: {{ .Values.persistentvolumeclaim.storage }}
+  volumeMode: Filesystem
+  accessModes:
+    - {{ .Values.persistentvolumeclaim.accessMode }}
+{{- end -}}
